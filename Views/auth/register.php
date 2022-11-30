@@ -8,6 +8,15 @@ include_once ROOT .  'views/include/navbar.php';
 
 ?>
 <div class="container">
+    <div>
+        <?php
+        foreach($errors as $message) :?>
+        <div class="alert alert-danger" style="text-align:center;" role="alert">
+            <?= $message?>
+        </div>
+
+            <?php endforeach ?>
+    </div>
     <form action="<?= URL ?>src/Controller/AuthController.php?param=register" method="post"  class="form-control">
         <label for="nom">Nom</label>
         <input type="text" name="nom" id="nom" class="form-control">

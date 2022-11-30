@@ -56,6 +56,8 @@ class UserCrud
 
     }
     public function delete($id)
+
+    
     {
         $sql = "DELETE FROM user WHERE id = $id";
         $stmt = $this->cbd->getConnect()->query($sql);
@@ -68,6 +70,13 @@ class UserCrud
         $result = $stmt->fetch(PDO::FETCH_OBJ);
         return $result;
     }
+    public function findByEmail($email){
+        $sql = "SELECT * FROM user WHERE email = '$email'";
+        $stmt = $this->cbd->getConnect()->query($sql);
+        $result = $stmt->fetch(PDO::FETCH_OBJ);
+        return $result;
+    }
+
     public function edit($id,$post){
         extract($post);
         $nom = $this->cbd->netoiFormulaire($nom);

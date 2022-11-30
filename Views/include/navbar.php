@@ -5,7 +5,6 @@ include_once $path . '/init.php';
 
 ?>
 
-
 <nav class="navbar navbar-expand-lg bg-light">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Navbar</a>
@@ -15,14 +14,13 @@ include_once $path . '/init.php';
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="">Home</a>
+          <a class="nav-link active" aria-current="page" href="<?= URL ?>index.php">Home</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="<?= URL ?>src/Controller/AuthController.php?param=register">inscreption</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="<?= URL ?>src/Controller/UserController.php?param=liste_user">Liste user</a>
-        </li>
+
+
+
+
+
         <li class="nav-item">
           <a class="nav-link" href="<?= URL ?>src/Controller/RamController.php?param=liste_user">Ram</a>
         </li>
@@ -33,18 +31,42 @@ include_once $path . '/init.php';
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="#">Action</a></li>
             <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><hr class="dropdown-divider"></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
             <li><a class="dropdown-item" href="#">Something else here</a></li>
           </ul>
         </li>
         <li class="nav-item">
           <a class="nav-link disabled">Disabled</a>
         </li>
-      </ul>
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
+
+        <?php if (!isset($_SESSION['user'])) : ?>
+
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="<?= URL ?>src/Controller/AuthController.php?param=register">inscreption</a>
+          </li>
+          <li class="nav-item">
+            <a class="btn btn-primary" href="<?= URL ?>src/Controller/AuthController.php?param=login">Login</a>
+          </li>
+        <?php else : ?>
+          <li class="nav-item">
+            <a class="btn btn-info" href="<?= URL ?>src/Controller/AuthController.php?param=logout">logout</a>
+          </li>
+          <?php if ($_SESSION['user']->role === 'admin') :   ?>
+
+            <li class="nav-item">
+              <a class="nav-link" href="<?= URL ?>src/Controller/UserController.php?param=liste_user">Liste user</a>
+            </li>
+
+          <?php endif ?>
+          <?php endif ?>
+          
+        </ul>
+    <form class="d-flex" role="search">
+      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>
     </div>
   </div>
 </nav>

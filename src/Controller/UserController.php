@@ -10,6 +10,8 @@ include_once $path . '/src/Autoload.php';
 
 Autoload::register();
 
+
+verif_role ('admin');
 if ($_GET['param']){
         $param = $_GET['param'];
 }
@@ -29,7 +31,7 @@ switch($param){
         $mdp_hash = password_hash($_POST['password'], PASSWORD_DEFAULT);
             $_POST['password']=$mdp_hash;
     
-            
+
         
         $userCrud->addUser($_POST);
         header("location: UserController.php?param=liste_user");
@@ -38,9 +40,15 @@ switch($param){
         break;
 
     case 'delete_user' :
-        $id = $_GET['id'];
-        $userCrud->delete($id);
-        header("location: UserController.php?param=liste_user");
+        if(isset($_SESSION['user'])AND $_SESSION['user']->role==='admin'){
+
+            $id = $_GET['id'];
+            $userCrud->delete($id);
+            header("location: UserController.php?param=liste_user");
+        }else{
+            $path = URL . 'index.php';
+            header("location: $path"); 
+        }
         break;
 
         case 'detail_user':
