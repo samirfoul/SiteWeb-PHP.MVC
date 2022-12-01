@@ -58,6 +58,9 @@ include_once $path . '/init.php';
             <li class="nav-item">
               <a class="nav-link" href="<?= URL ?>src/Controller/UserController.php?param=liste_user">Liste user</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="<?= URL ?>src/Controller/TelController.php?param=liste_tel">liste tel</a>
+            </li>
 
           <?php endif ?>
           <?php endif ?>
